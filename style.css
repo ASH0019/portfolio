@@ -1,0 +1,899 @@
+/* =====================================================
+   DESIGN TOKENS
+   Navy stays primary (analytics / finance register), but it
+   now shares the page with a gold "metric highlight" and a
+   muted teal for a second data series — the page reads like
+   a designed report, not a single-color template.
+   ===================================================== */
+:root {
+  --bg:         #EFEAE0;
+  --paper:      #FFFFFF;
+  --ink:        #10131A;
+  --ink-soft:   #1B2230;
+  --text:       #1E222C;
+  --muted:      #6B7280;
+  --accent:     #2C4A7C;
+  --accent-deep:#1B3157;
+  --accent-soft:#E4EAF3;
+  --gold:       #C07F22;
+  --gold-soft:  #F4E3C5;
+  --teal:       #2E7D72;
+  --line:       #DCD4C2;
+  --line-soft:  #E8E2D4;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  background-color: var(--bg);
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+body {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0 24px 100px;
+  color: var(--text);
+  font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+a { color: inherit; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* =====================================================
+   SCROLL PROGRESS BAR
+   ===================================================== */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--gold), var(--teal));
+  z-index: 100;
+  transition: width 0.1s linear;
+  border-radius: 0 2px 2px 0;
+}
+
+/* =====================================================
+   NAV — sticky, minimal, active-section indicator
+   ===================================================== */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background-color: var(--ink);
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 18px 24px;
+  margin: 0 -24px;
+  flex-wrap: wrap;
+}
+
+nav a {
+  color: #9099AA;
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 7px;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+nav a:hover {
+  color: #FFFFFF;
+  background-color: rgba(255,255,255,0.07);
+}
+
+nav a.active {
+  color: #FFFFFF;
+  background-color: var(--accent);
+  box-shadow: inset 0 -2px 0 var(--gold);
+}
+
+/* =====================================================
+   HERO — full-bleed dark panel, the page's signature move.
+   Gold tagline reads like a highlighted metric; thin gold
+   rule under the photo nods to a dashboard accent line.
+   ===================================================== */
+header {
+  background-color: var(--ink);
+  margin: 0 -24px 56px;
+  padding: 72px 24px 64px;
+  display: flex;
+  align-items: center;
+  gap: 44px;
+  position: relative;
+  overflow: hidden;
+}
+
+header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 14% 18%, rgba(192,127,34,0.16), transparent 38%),
+    radial-gradient(circle at 88% 82%, rgba(44,74,124,0.35), transparent 45%);
+  pointer-events: none;
+}
+
+.hero-photo {
+  flex-shrink: 0;
+  width: 156px;
+  height: 156px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid var(--gold);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+  position: relative;
+}
+
+.hero-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 15%;
+}
+
+.hero-text { position: relative; }
+
+.hero-text h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: #FFFFFF;
+}
+
+.hero-tagline {
+  color: var(--gold);
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.hero-welcome {
+  color: #AEB4C2;
+  font-size: 0.98rem;
+  margin-top: 10px;
+  max-width: 480px;
+  line-height: 1.6;
+}
+
+.hero-open {
+  display: inline-block;
+  margin-top: 14px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: #AEB4C2;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 999px;
+  padding: 5px 14px;
+  letter-spacing: 0.01em;
+}
+
+.hero-logos {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 22px;
+  flex-wrap: nowrap;
+}
+
+.hero-logos-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #5A6070;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.company-logo {
+  display: flex;
+  align-items: center;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 6px 12px;
+  color: #CBD0DA;
+  transition: background 0.18s ease, border-color 0.18s ease;
+  animation: logo-float 4s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+.company-logo img {
+  height: 32px;
+  width: auto;
+  max-width: 120px;
+  object-fit: contain;
+}
+
+.company-logo:nth-child(2) { animation-delay: 0s; }
+.company-logo:nth-child(3) { animation-delay: 0.8s; }
+.company-logo:nth-child(4) { animation-delay: 1.6s; }
+
+.company-logo:hover {
+  background: rgba(255,255,255,0.11);
+  border-color: rgba(192,127,34,0.4);
+  color: #FFFFFF;
+}
+
+@keyframes logo-float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-4px); }
+}
+
+/* =====================================================
+   SECTION RHYTHM
+   Alternating treatments keep the scroll from feeling like
+   one repeating template: some sections are framed cards,
+   some are open / full-width, spacing varies intentionally.
+   ===================================================== */
+section, footer#contact {
+  margin-bottom: 56px;
+  scroll-margin-top: 84px;
+}
+
+section h2 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--accent);
+}
+
+.section-intro {
+  color: var(--muted);
+  font-size: 0.92rem;
+  margin-top: 6px;
+  margin-bottom: 4px;
+}
+
+section > p:not(.section-intro) {
+  margin-top: 14px;
+}
+
+/* Framed sections: About + Education sit on true white cards
+   with real elevation, so they lift off the warm page background
+   instead of blending into it. */
+.framed {
+  position: relative;
+  padding: 32px 32px 32px 36px;
+  border-left: 3px solid var(--gold);
+  background-color: var(--paper);
+  border-radius: 0 14px 14px 0;
+  box-shadow: 0 6px 24px rgba(16,19,26,0.08);
+}
+
+.framed-photo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 0 14px 14px 0;
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+.framed-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, var(--paper) 0%, transparent 55%);
+}
+
+.framed-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.framed h2,
+.framed p,
+.framed .exp-row {
+  position: relative;
+}
+
+/* =====================================================
+   PROJECTS
+   Uniform dark "ink" cards — the screenshots supply the
+   color, the chrome stays disciplined. Numbered because
+   project order is a real signal (the order you'd walk a
+   recruiter through your work).
+   ===================================================== */
+.proj-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.proj-card {
+  position: relative;
+  background-color: var(--ink);
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.proj-card:first-child {
+  grid-column: 1 / -1;
+}
+
+.proj-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 32px rgba(20,24,31,0.22);
+}
+
+.proj-card.filtered-out {
+  opacity: 0.25;
+  filter: grayscale(0.6);
+  transform: scale(0.98);
+}
+
+.proj-index {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 2;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--gold-soft);
+  background-color: rgba(16,19,26,0.6);
+  backdrop-filter: blur(4px);
+  padding: 3px 9px;
+  border-radius: 999px;
+  letter-spacing: 0.04em;
+  border: 1px solid rgba(192,127,34,0.4);
+}
+
+.proj-image {
+  padding: 14px 14px 0 14px;
+}
+
+.proj-image img {
+  width: 100%;
+  display: block;
+  border-radius: 8px;
+}
+
+.proj-text {
+  padding: 20px 24px 24px 24px;
+}
+
+.proj-tag {
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+
+.proj-link {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 0.83rem;
+  font-weight: 600;
+  color: var(--gold);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(192,127,34,0.35);
+  padding-bottom: 1px;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.proj-link:hover {
+  color: #E8A84A;
+  border-color: var(--gold);
+}
+
+.proj-card h3 {
+  color: #FFFFFF;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.proj-desc {
+  color: #B7BECC;
+  font-size: 0.92rem;
+  margin-top: 0 !important;
+}
+
+/* =====================================================
+   EXPERIENCE — clickable rows that expand a detail line
+   ===================================================== */
+#experience {
+  margin-top: 8px;
+  background-color: var(--paper);
+  border-radius: 14px;
+  padding: 28px 32px 12px;
+  box-shadow: 0 6px 24px rgba(16,19,26,0.08);
+}
+
+.exp-row {
+  position: relative;
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  padding: 0;
+}
+
+.exp-row-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 16px 4px 16px 22px;
+  gap: 16px;
+}
+
+.exp-row-main h4 {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.exp-row-main p {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-top: 2px !important;
+}
+
+.exp-row-main span {
+  color: var(--muted);
+  font-size: 0.84rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.exp-row-main::before {
+  content: "+";
+  position: absolute;
+  left: 0;
+  top: 18px;
+  color: var(--gold);
+  font-weight: 700;
+  font-size: 1.1rem;
+  transition: transform 0.2s ease;
+}
+
+.exp-row[aria-expanded="true"] .exp-row-main::before {
+  content: "–";
+}
+
+.exp-detail {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, padding 0.35s ease;
+}
+
+.exp-row[aria-expanded="true"] .exp-detail {
+  max-height: 260px;
+  padding-bottom: 18px;
+}
+
+.exp-detail p,
+.exp-detail ul {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  padding-left: 4px;
+  margin-top: 8px;
+}
+
+.exp-detail ul {
+  list-style: none;
+  padding-left: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.exp-detail ul li {
+  position: relative;
+  padding-left: 14px;
+}
+
+.exp-detail ul li::before {
+  content: "·";
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  font-weight: 700;
+  font-size: 1.3rem;
+  line-height: 1.3;
+}
+
+/* Education rows reuse .exp-row's look but as static divs */
+#education .exp-row {
+  cursor: default;
+}
+
+#education .exp-row-main {
+  padding-left: 4px;
+}
+
+#education .exp-row-main::before {
+  content: none;
+}
+
+/* =====================================================
+   SKILLS — interactive filter chips
+   ===================================================== */
+#skills {
+  background-color: var(--paper);
+  border-radius: 14px;
+  padding: 28px 32px 32px;
+  box-shadow: 0 6px 24px rgba(16,19,26,0.08);
+}
+
+.skill-group {
+  margin-bottom: 22px;
+}
+
+.skill-group:last-child { margin-bottom: 0; }
+
+.skill-group h4 {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.tag {
+  font: inherit;
+  background-color: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 7px 16px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--accent);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.tag:hover {
+  border-color: var(--accent);
+}
+
+.tag.active {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: #FFFFFF;
+}
+
+.tag-static {
+  cursor: default;
+  color: var(--teal);
+  border-color: var(--line);
+  background-color: #EAF2F0;
+}
+
+.tag-static:hover {
+  border-color: var(--teal);
+}
+
+/* =====================================================
+   CERTIFICATIONS — chip rows on a white card instead of
+   a bare link list, so 16 items read as credentials, not
+   a sitemap.
+   ===================================================== */
+#certifications {
+  background-color: var(--paper);
+  border-radius: 14px;
+  padding: 28px 32px 32px;
+  box-shadow: 0 6px 24px rgba(16,19,26,0.08);
+}
+
+.cert-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 14px;
+  margin-top: 18px;
+}
+
+.cert-list li {
+  position: relative;
+  padding: 9px 14px 9px 28px;
+  font-size: 0.89rem;
+  border-radius: 8px;
+  background-color: #F4F2ED;
+  line-height: 1.35;
+}
+
+.cert-list li::before {
+  content: "";
+  position: absolute;
+  left: 13px;
+  top: 16px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--line);
+}
+
+.cert-list li:has(> a)::before {
+  background-color: var(--gold);
+}
+
+.cert-list a {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.15s ease;
+}
+
+.cert-list a:hover {
+  color: var(--accent);
+}
+
+.cert-list li:not(:has(> a)) {
+  color: var(--muted);
+  background-color: transparent;
+}
+
+.cert-note {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line-soft);
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.cert-note a {
+  color: var(--accent-deep);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+}
+
+.cert-note a:hover {
+  border-color: var(--accent);
+}
+
+/* =====================================================
+   CONTACT — dark panel bookends the hero treatment at the
+   top, so the page opens and closes on the same register.
+   ===================================================== */
+footer#contact {
+  background-color: var(--ink);
+  margin: 0 -24px;
+  padding: 52px 24px 60px;
+  border-radius: 14px 14px 0 0;
+}
+
+footer#contact h2 {
+  color: var(--gold);
+}
+
+footer#contact p {
+  color: #AEB4C2;
+  margin-top: 8px;
+}
+
+.contact-links {
+  display: flex;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  border: 2px solid var(--gold);
+  color: var(--gold);
+  text-decoration: none;
+  transition: background-color 0.18s ease, color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.social-icon:hover {
+  background-color: var(--gold);
+  color: var(--ink);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(192,127,34,0.35);
+}
+
+/* =====================================================
+   SCROLL-REVEAL — sections fade/rise in once, on first
+   scroll into view. One orchestrated effect, not scattered.
+   ===================================================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =====================================================
+   RESPONSIVE — MOBILE (≤640px)
+   ===================================================== */
+@media (max-width: 640px) {
+  body {
+    padding: 0 18px 72px;
+    font-size: 16px;
+  }
+
+  /* Nav: stop wrapping into a messy multi-line block —
+     scroll horizontally instead, like a tab strip. */
+  nav {
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 4px;
+    padding: 14px 16px;
+    margin: 0 -18px;
+    mask-image: linear-gradient(to right, transparent, black 16px, black calc(100% - 28px), transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 16px, black calc(100% - 28px), transparent);
+  }
+
+  nav::-webkit-scrollbar { display: none; }
+
+  nav a {
+    flex-shrink: 0;
+    font-size: 0.86rem;
+    padding: 10px 12px;
+  }
+
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+    margin: 0 -18px 40px;
+    padding: 44px 18px 36px;
+  }
+
+  .hero-photo {
+    width: 108px;
+    height: 108px;
+  }
+
+  .hero-text h1 { font-size: 2rem; }
+
+  .hero-welcome { max-width: none; }
+
+  .hero-open { font-size: 0.78rem; }
+
+  .hero-logos { gap: 10px; }
+
+  .company-logo { padding: 5px 10px; }
+
+  section, footer#contact {
+    margin-bottom: 40px;
+    scroll-margin-top: 64px;
+  }
+
+  /* Framed sections (About/Education): the side photo is gone,
+     so collapse the reserved padding and accent rule down to
+     something that doesn't eat a third of a phone screen. */
+  .framed {
+    padding: 22px 18px 22px 20px;
+    border-radius: 0 10px 10px 0;
+  }
+
+  .framed-photo {
+    display: none;
+  }
+
+  .proj-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .proj-card:first-child {
+    grid-column: 1;
+  }
+
+  .proj-text {
+    padding: 16px 18px 20px 18px;
+  }
+
+  #experience,
+  #skills,
+  #certifications {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .exp-row-main {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+    padding: 14px 4px 14px 22px;
+  }
+
+  .exp-row-main::before {
+    top: 16px;
+  }
+
+  .cert-list {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  footer#contact {
+    margin: 0 -18px;
+    padding: 48px 18px 56px;
+  }
+
+  .contact-links {
+    gap: 14px;
+  }
+}
+
+/* =====================================================
+   RESPONSIVE — SMALL PHONES (≤380px)
+   ===================================================== */
+@media (max-width: 380px) {
+  body { padding: 0 14px 64px; }
+
+  .hero-text h1 { font-size: 1.7rem; }
+
+  .hero-tagline { font-size: 0.96rem; }
+
+  nav { padding: 12px; margin: 0 -14px; }
+
+  nav a { font-size: 0.8rem; padding: 6px 10px; }
+
+  header {
+    margin: 0 -14px 36px;
+    padding: 40px 14px 32px;
+  }
+
+  .framed { padding: 18px 14px 18px 16px; }
+
+  section h2 { font-size: 0.95rem; }
+
+  footer#contact {
+    margin: 0 -14px;
+    padding: 44px 14px 52px;
+  }
+}
