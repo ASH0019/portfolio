@@ -1,18 +1,15 @@
-// ===== HERO PARTICLE BACKGROUND =====
+// ===== FULL PAGE PARTICLE BACKGROUND =====
 function initParticles() {
-  const header = document.querySelector('header');
-  if (!header) return;
-
   const canvas = document.createElement('canvas');
-  canvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:0.45;';
-  header.appendChild(canvas);
+  canvas.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:0.5;';
+  document.body.appendChild(canvas);
 
   const ctx = canvas.getContext('2d');
   let W, H, particles;
 
   function resize() {
-    W = canvas.width = header.offsetWidth;
-    H = canvas.height = header.offsetHeight;
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
   }
 
   function randomBetween(a, b) { return a + Math.random() * (b - a); }
@@ -22,11 +19,11 @@ function initParticles() {
     particles = Array.from({ length: count }, () => ({
       x: randomBetween(0, W),
       y: randomBetween(0, H),
-      r: randomBetween(1, 2.5),
-      vx: randomBetween(-0.15, 0.15),
-      vy: randomBetween(-0.25, -0.05),
-      alpha: randomBetween(0.2, 0.7),
-      color: Math.random() > 0.6 ? '#C07F22' : '#2C4A7C'
+      r: randomBetween(0.8, 2.2),
+      vx: randomBetween(-0.1, 0.1),
+      vy: randomBetween(-0.2, -0.04),
+      alpha: randomBetween(0.15, 0.6),
+      color: Math.random() > 0.6 ? '#C07F22' : '#3A5A9C'
     }));
   }
 
@@ -38,10 +35,8 @@ function initParticles() {
       ctx.fillStyle = p.color;
       ctx.globalAlpha = p.alpha;
       ctx.fill();
-
       p.x += p.vx;
       p.y += p.vy;
-
       if (p.y < -5) { p.y = H + 5; p.x = randomBetween(0, W); }
       if (p.x < -5) p.x = W + 5;
       if (p.x > W + 5) p.x = -5;

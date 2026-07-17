@@ -53,7 +53,9 @@ main {
   max-width: 960px;
   margin: 0 auto;
   padding: 0 32px 100px;
-  background-color: var(--bg);
+  background-color: transparent;
+  position: relative;
+  z-index: 1;
 }
 
 a { color: inherit; }
@@ -141,7 +143,7 @@ nav a.active {
    rule under the photo nods to a dashboard accent line.
    ===================================================== */
 header {
-  background-color: var(--ink);
+  background-color: transparent;
   width: 100%;
   padding: 72px 40px 64px;
   display: flex;
@@ -149,8 +151,7 @@ header {
   justify-content: center;
   gap: 44px;
   position: relative;
-  overflow: hidden;
-  box-sizing: border-box;
+  z-index: 1;
 }
 
 header::before {
