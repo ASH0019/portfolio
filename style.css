@@ -46,6 +46,8 @@ body {
   font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
   font-size: 17px;
   line-height: 1.6;
+  background-color: var(--bg);
+  box-shadow: 0 0 0 100vw var(--ink);
 }
 
 a { color: inherit; }
