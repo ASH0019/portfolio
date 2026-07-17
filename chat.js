@@ -1,55 +1,4 @@
 // ===== AI CHAT WIDGET =====
-const SYSTEM_PROMPT = `You are Ashar's AI — a friendly assistant embedded in Ashar Shamim's portfolio website. You answer recruiter and visitor questions about Ashar based on his real background. Keep answers concise (2-4 sentences max). Be warm, confident, and professional.
-
-Here is everything you know about Ashar:
-
-NAME: Ashar Shamim
-LOCATION: Amherst, Massachusetts, USA
-EMAIL: asharshamim@umass.edu
-PHONE: +1 413-345-9422
-LINKEDIN: linkedin.com/in/asharshamim019/
-GITHUB: github.com/ASH0019
-WEBSITE: asharshamim.com
-
-EDUCATION:
-- MS in Business Analytics, UMass Amherst (Isenberg School of Management), Jan 2026 – May 2027, GPA: 4.0/4.0
-- BBA, Institute of Business Administration (IBA), Karachi, Graduated June 2024, GPA: 3.25
-
-WORK EXPERIENCE:
-1. Front Desk Associate, Hotel UMass (May 2026 – Present)
-   - Manages real-time coordination across housekeeping, events and operations teams, resolving 50+ daily service requests
-   - Performs nightly financial audits with zero discrepancies
-   - Primary guest contact for escalations
-
-2. Grant Administrator, Aga Khan University (Aug 2024 – Jan 2025)
-   - Managed 15+ grant applications, converted 6 to awards totaling ~$300K including a $1.5M CHAMPS global health project
-   - Analyzed data across 50+ active projects and produced dashboards for senior leadership
-
-3. Commercial Sales Intern, Chevron Lubricants Pakistan (Jul–Aug 2023)
-   - Analyzed nationwide sales data, identified regional performance gaps
-   - Designed 18 promotional proposals projected to increase sales by 10%
-
-4. Product Development Intern, DuPont Pakistan (Jun–Jul 2022)
-   - Secured a $10,000 CSR project for hearing-impaired students
-   - Uncovered counterfeit Hazmat suits through mystery-shopping exercise
-
-PROJECTS:
-1. City Comparison Dashboard (Excel & VBA) — compares 15+ US cities across salary, cost of living, healthcare and safety
-2. COVID-19 Case-to-Death Analysis (Python, OLS Regression) — R²=0.767, 14-day lag variable across Pakistan's 4 pandemic waves
-3. Equity Analysis: Fashion & Apparel (Python) — correlation and rolling volatility of TPR, RL, CPRI, PVH, NKE from 2019–2025
-4. Dastgyr Retail Analytics Dashboard (Power BI, DAX) — tracks 833M GMV, 5,408 customers, 288 sellers
-5. Hotel Management System (SQL, Power BI) — 35K+ reservations, revenue and occupancy tracking
-
-SKILLS:
-- Languages & Tools: Python (Pandas), SQL, Power BI (DAX), R, Excel, VBA
-- Analytics & Viz: SPSS, GA4, Looker Studio, Figma
-
-CERTIFICATIONS: AI for Everyone, Google Digital Marketing & E-commerce, People Analytics, Python (multiple), SQL (multiple), R, Power BI, Web Scraping, APIs, Regression with statsmodels
-
-INTERNSHIP STATUS: Open to Summer / Fall 2026 internships in analytics, operations, or AI automation. OPT/CPT eligible.
-
-If asked something you don't know, say "I don't have that info — reach out to Ashar directly at asharshamim@umass.edu"`;
-
 const SUGGESTED = [
   "What projects has he built?",
   "Is he available to hire?",
@@ -58,7 +7,6 @@ const SUGGESTED = [
 ];
 
 function createChatWidget() {
-  // Inject styles
   const style = document.createElement('style');
   style.textContent = `
     #ai-chat-btn {
@@ -245,23 +193,17 @@ function createChatWidget() {
     .chat-send:hover { transform: scale(1.08); }
     .chat-send svg { color: #10131A; }
     @media (max-width: 640px) {
-      #ai-chat-panel {
-        width: calc(100vw - 32px);
-        right: 16px;
-        bottom: 80px;
-      }
+      #ai-chat-panel { width: calc(100vw - 32px); right: 16px; bottom: 80px; }
       #ai-chat-btn { right: 16px; bottom: 20px; }
     }
   `;
   document.head.appendChild(style);
 
-  // HTML
   document.body.insertAdjacentHTML('beforeend', `
     <button id="ai-chat-btn">
       <span class="btn-dot"></span>
       Ask Ashar's AI
     </button>
-
     <div id="ai-chat-panel">
       <div class="chat-header">
         <div class="chat-avatar">A</div>
@@ -280,15 +222,12 @@ function createChatWidget() {
       <div class="chat-input-row">
         <input type="text" id="chat-input" placeholder="Ask anything about Ashar..." />
         <button class="chat-send" id="chat-send-btn">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/>
-          </svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
         </button>
       </div>
     </div>
   `);
 
-  // Logic
   const btn = document.getElementById('ai-chat-btn');
   const panel = document.getElementById('ai-chat-panel');
   const closeBtn = document.getElementById('chat-close-btn');
@@ -296,7 +235,6 @@ function createChatWidget() {
   const input = document.getElementById('chat-input');
   const sendBtn = document.getElementById('chat-send-btn');
   const suggestedDiv = document.getElementById('chat-suggested');
-
   let history = [];
   let isLoading = false;
 
@@ -309,14 +247,13 @@ function createChatWidget() {
     div.textContent = text;
     messages.appendChild(div);
     messages.scrollTop = messages.scrollHeight;
-    return div;
   }
 
   function showTyping() {
     const div = document.createElement('div');
     div.className = 'chat-msg bot typing';
-    div.innerHTML = '<span></span><span></span><span></span>';
     div.id = 'typing-indicator';
+    div.innerHTML = '<span></span><span></span><span></span>';
     messages.appendChild(div);
     messages.scrollTop = messages.scrollHeight;
   }
@@ -329,46 +266,33 @@ function createChatWidget() {
   async function sendMessage(text) {
     if (!text.trim() || isLoading) return;
     isLoading = true;
-
-    // Hide suggested questions after first use
     suggestedDiv.style.display = 'none';
-
     addMsg(text, 'user');
     history.push({ role: 'user', content: text });
     input.value = '';
     showTyping();
 
     try {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
+      const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-6',
-          max_tokens: 1000,
-          system: SYSTEM_PROMPT,
-          messages: history
-        })
+        body: JSON.stringify({ messages: history })
       });
-
       const data = await res.json();
-      const reply = data.content?.[0]?.text || "Sorry, I couldn't get a response. Email Ashar directly at asharshamim@umass.edu";
+      const reply = data.content?.[0]?.text || "I couldn't get a response — email Ashar at asharshamim@umass.edu";
       removeTyping();
       addMsg(reply, 'bot');
       history.push({ role: 'assistant', content: reply });
-    } catch (err) {
+    } catch {
       removeTyping();
-      addMsg("Something went wrong. Reach out to Ashar directly at asharshamim@umass.edu", 'bot');
+      addMsg("Something went wrong. Reach out to Ashar at asharshamim@umass.edu", 'bot');
     }
-
     isLoading = false;
   }
 
   sendBtn.addEventListener('click', () => sendMessage(input.value));
-  input.addEventListener('keydown', (e) => { if (e.key === 'Enter') sendMessage(input.value); });
-
-  document.querySelectorAll('.suggest-btn').forEach(btn => {
-    btn.addEventListener('click', () => sendMessage(btn.textContent));
-  });
+  input.addEventListener('keydown', e => { if (e.key === 'Enter') sendMessage(input.value); });
+  document.querySelectorAll('.suggest-btn').forEach(b => b.addEventListener('click', () => sendMessage(b.textContent)));
 }
 
 createChatWidget();
