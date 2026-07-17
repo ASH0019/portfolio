@@ -1,25 +1,25 @@
 /* =====================================================
-   DESIGN TOKENS
-   Navy stays primary (analytics / finance register), but it
-   now shares the page with a gold "metric highlight" and a
-   muted teal for a second data series — the page reads like
-   a designed report, not a single-color template.
+   DESIGN TOKENS — Full dark theme
    ===================================================== */
 :root {
-  --bg:         #EFEAE0;
-  --paper:      #FFFFFF;
+  --bg:         #10131A;
+  --bg-section: #141820;
+  --bg-card:    #1A1F2E;
+  --bg-card-2:  #1E2434;
+  --paper:      #1A1F2E;
   --ink:        #10131A;
   --ink-soft:   #1B2230;
-  --text:       #1E222C;
+  --text:       #D4D8E2;
+  --text-strong:#FFFFFF;
   --muted:      #6B7280;
   --accent:     #2C4A7C;
   --accent-deep:#1B3157;
-  --accent-soft:#E4EAF3;
+  --accent-soft:#1E2A40;
   --gold:       #C07F22;
-  --gold-soft:  #F4E3C5;
+  --gold-soft:  rgba(192,127,34,0.12);
   --teal:       #2E7D72;
-  --line:       #DCD4C2;
-  --line-soft:  #E8E2D4;
+  --line:       rgba(255,255,255,0.08);
+  --line-soft:  rgba(255,255,255,0.05);
 }
 
 * {
@@ -46,13 +46,14 @@ body {
   font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
   font-size: 17px;
   line-height: 1.6;
-  background-color: var(--ink);
+  background-color: var(--bg);
 }
 
 main {
-  max-width: 880px;
+  max-width: 960px;
   margin: 0 auto;
-  padding: 0 24px 100px;
+  padding: 0 32px 100px;
+  background-color: var(--bg);
 }
 
 a { color: inherit; }
@@ -287,11 +288,11 @@ section, footer#contact {
 }
 
 section h2 {
-  font-size: 1.05rem;
+  font-size: 0.78rem;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.09em;
-  color: var(--accent);
+  letter-spacing: 0.12em;
+  color: var(--gold);
 }
 
 .section-intro {
@@ -303,18 +304,17 @@ section h2 {
 
 section > p:not(.section-intro) {
   margin-top: 14px;
+  color: var(--text);
 }
 
-/* Framed sections: About + Education sit on true white cards
-   with real elevation, so they lift off the warm page background
-   instead of blending into it. */
+/* Framed sections: dark cards with gold left border */
 .framed {
   position: relative;
   padding: 32px 32px 32px 36px;
   border-left: 3px solid var(--gold);
-  background-color: var(--paper);
+  background-color: var(--bg-card);
   border-radius: 0 14px 14px 0;
-  box-shadow: 0 6px 24px rgba(16,19,26,0.08);
+  box-shadow: 0 6px 32px rgba(0,0,0,0.3);
 }
 
 .framed-photo {
@@ -325,7 +325,7 @@ section > p:not(.section-intro) {
   height: 100%;
   overflow: hidden;
   border-radius: 0 14px 14px 0;
-  opacity: 0.1;
+  opacity: 0.06;
   pointer-events: none;
 }
 
@@ -333,7 +333,7 @@ section > p:not(.section-intro) {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(100deg, var(--paper) 0%, transparent 55%);
+  background: linear-gradient(100deg, var(--bg-card) 0%, transparent 55%);
 }
 
 .framed-photo img {
@@ -462,10 +462,10 @@ section > p:not(.section-intro) {
    ===================================================== */
 #experience {
   margin-top: 8px;
-  background-color: var(--paper);
+  background-color: var(--bg-card);
   border-radius: 14px;
   padding: 28px 32px 12px;
-  box-shadow: 0 6px 24px rgba(16,19,26,0.08);
+  box-shadow: 0 6px 32px rgba(0,0,0,0.3);
 }
 
 .exp-row {
@@ -493,6 +493,7 @@ section > p:not(.section-intro) {
 .exp-row-main h4 {
   font-size: 1rem;
   font-weight: 700;
+  color: var(--text-strong);
 }
 
 .exp-row-main p {
@@ -583,10 +584,10 @@ section > p:not(.section-intro) {
    SKILLS — interactive filter chips
    ===================================================== */
 #skills {
-  background-color: var(--paper);
+  background-color: var(--bg-card);
   border-radius: 14px;
   padding: 28px 32px 32px;
-  box-shadow: 0 6px 24px rgba(16,19,26,0.08);
+  box-shadow: 0 6px 32px rgba(0,0,0,0.3);
 }
 
 .skill-group {
@@ -612,19 +613,20 @@ section > p:not(.section-intro) {
 
 .tag {
   font: inherit;
-  background-color: var(--paper);
+  background-color: var(--bg-card-2);
   border: 1px solid var(--line);
   border-radius: 999px;
   padding: 7px 16px;
   font-size: 0.88rem;
   font-weight: 600;
-  color: var(--accent);
+  color: #9099AA;
   cursor: pointer;
   transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 
 .tag:hover {
-  border-color: var(--accent);
+  border-color: var(--gold);
+  color: var(--gold);
 }
 
 .tag.active {
@@ -635,13 +637,14 @@ section > p:not(.section-intro) {
 
 .tag-static {
   cursor: default;
-  color: var(--teal);
-  border-color: var(--line);
-  background-color: #EAF2F0;
+  color: #2E9E92;
+  border-color: rgba(46,157,146,0.3);
+  background-color: rgba(46,125,114,0.1);
 }
 
 .tag-static:hover {
   border-color: var(--teal);
+  color: #2E9E92;
 }
 
 /* =====================================================
@@ -650,10 +653,10 @@ section > p:not(.section-intro) {
    a sitemap.
    ===================================================== */
 #certifications {
-  background-color: var(--paper);
+  background-color: var(--bg-card);
   border-radius: 14px;
   padding: 28px 32px 32px;
-  box-shadow: 0 6px 24px rgba(16,19,26,0.08);
+  box-shadow: 0 6px 32px rgba(0,0,0,0.3);
 }
 
 .cert-list {
@@ -669,8 +672,9 @@ section > p:not(.section-intro) {
   padding: 9px 14px 9px 28px;
   font-size: 0.89rem;
   border-radius: 8px;
-  background-color: #F4F2ED;
+  background-color: var(--bg-card-2);
   line-height: 1.35;
+  color: var(--text);
 }
 
 .cert-list li::before {
@@ -696,7 +700,7 @@ section > p:not(.section-intro) {
 }
 
 .cert-list a:hover {
-  color: var(--accent);
+  color: var(--gold);
 }
 
 .cert-list li:not(:has(> a)) {
@@ -713,14 +717,15 @@ section > p:not(.section-intro) {
 }
 
 .cert-note a {
-  color: var(--accent-deep);
+  color: #9099AA;
   font-weight: 600;
   text-decoration: none;
   border-bottom: 1px solid var(--line);
 }
 
 .cert-note a:hover {
-  border-color: var(--accent);
+  color: var(--gold);
+  border-color: var(--gold);
 }
 
 /* =====================================================
