@@ -1,4 +1,6 @@
 import './style.css';
+import './particles.js';
+import './chat.js';
 
 // ===== Scroll-reveal =====
 const revealEls = document.querySelectorAll('.reveal');
