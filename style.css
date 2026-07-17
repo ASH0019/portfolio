@@ -29,7 +29,7 @@
 }
 
 html {
-  background-color: var(--bg);
+  background-color: var(--ink);
   scroll-behavior: smooth;
 }
 
