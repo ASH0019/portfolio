@@ -39,15 +39,20 @@ html {
 }
 
 body {
-  max-width: 880px;
-  margin: 0 auto;
-  padding: 0 24px 100px;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
   color: var(--text);
   font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
   font-size: 17px;
   line-height: 1.6;
-  background-color: var(--bg);
-  box-shadow: 0 0 0 100vw var(--ink);
+  background-color: var(--ink);
+}
+
+main {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0 24px 100px;
 }
 
 a { color: inherit; }
@@ -81,17 +86,37 @@ nav {
   z-index: 20;
   background-color: var(--ink);
   display: flex;
-  justify-content: center;
-  gap: 8px;
-  padding: 18px 24px;
-  margin: 0 -24px;
-  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  height: 60px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.nav-logo {
+  color: #FFFFFF !important;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  padding: 0 !important;
+  background: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  flex-shrink: 0;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 nav a {
   color: #9099AA;
   text-decoration: none;
-  font-size: 0.92rem;
+  font-size: 0.88rem;
   font-weight: 500;
   padding: 6px 12px;
   border-radius: 7px;
@@ -116,13 +141,15 @@ nav a.active {
    ===================================================== */
 header {
   background-color: var(--ink);
-  margin: 0 -24px 56px;
-  padding: 72px 24px 64px;
+  width: 100%;
+  padding: 72px 40px 64px;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 44px;
   position: relative;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 header::before {
@@ -250,9 +277,13 @@ header::before {
    one repeating template: some sections are framed cards,
    some are open / full-width, spacing varies intentionally.
    ===================================================== */
+main {
+  background-color: var(--bg);
+}
+
 section, footer#contact {
   margin-bottom: 56px;
-  scroll-margin-top: 84px;
+  scroll-margin-top: 60px;
 }
 
 section h2 {
@@ -698,9 +729,10 @@ section > p:not(.section-intro) {
    ===================================================== */
 footer#contact {
   background-color: var(--ink);
-  margin: 0 -24px;
-  padding: 52px 24px 60px;
-  border-radius: 14px 14px 0 0;
+  width: 100%;
+  padding: 52px 40px 60px;
+  border-radius: 0;
+  box-sizing: border-box;
 }
 
 footer#contact h2 {
@@ -758,38 +790,35 @@ footer#contact p {
    ===================================================== */
 @media (max-width: 640px) {
   body {
-    padding: 0 18px 72px;
     font-size: 16px;
   }
 
-  /* Nav: stop wrapping into a messy multi-line block —
-     scroll horizontally instead, like a tab strip. */
+  main {
+    padding: 0 18px 72px;
+  }
+
   nav {
-    justify-content: flex-start;
-    flex-wrap: nowrap;
+    padding: 0 18px;
+    height: 52px;
+  }
+
+  .nav-logo {
+    font-size: 0.9rem;
+  }
+
+  .nav-links {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    gap: 4px;
-    padding: 14px 16px;
-    margin: 0 -18px;
-    mask-image: linear-gradient(to right, transparent, black 16px, black calc(100% - 28px), transparent);
-    -webkit-mask-image: linear-gradient(to right, transparent, black 16px, black calc(100% - 28px), transparent);
+    gap: 2px;
   }
 
-  nav::-webkit-scrollbar { display: none; }
-
-  nav a {
-    flex-shrink: 0;
-    font-size: 0.86rem;
-    padding: 10px 12px;
-  }
+  .nav-links::-webkit-scrollbar { display: none; }
 
   header {
     flex-direction: column;
     align-items: flex-start;
     gap: 18px;
-    margin: 0 -18px 40px;
     padding: 44px 18px 36px;
   }
 
@@ -862,7 +891,6 @@ footer#contact p {
   }
 
   footer#contact {
-    margin: 0 -18px;
     padding: 48px 18px 56px;
   }
 
@@ -875,27 +903,22 @@ footer#contact p {
    RESPONSIVE — SMALL PHONES (≤380px)
    ===================================================== */
 @media (max-width: 380px) {
-  body { padding: 0 14px 64px; }
+  main { padding: 0 14px 64px; }
 
   .hero-text h1 { font-size: 1.7rem; }
 
   .hero-tagline { font-size: 0.96rem; }
 
-  nav { padding: 12px; margin: 0 -14px; }
+  nav { padding: 0 12px; }
 
   nav a { font-size: 0.8rem; padding: 6px 10px; }
 
-  header {
-    margin: 0 -14px 36px;
-    padding: 40px 14px 32px;
-  }
+  header { padding: 40px 14px 32px; }
 
   .framed { padding: 18px 14px 18px 16px; }
 
   section h2 { font-size: 0.95rem; }
 
-  footer#contact {
-    margin: 0 -14px;
-    padding: 44px 14px 52px;
-  }
+  footer#contact { padding: 44px 14px 52px; }
+}
 }
