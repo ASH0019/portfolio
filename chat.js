@@ -279,6 +279,12 @@ function createChatWidget() {
         body: JSON.stringify({ messages: history })
       });
       const data = await res.json();
+      if (data.error) {
+        removeTyping();
+        addMsg('Error: ' + data.error, 'bot');
+        isLoading = false;
+        return;
+      }
       const reply = data.content?.[0]?.text || "I couldn't get a response — email Ashar at asharshamim@umass.edu";
       removeTyping();
       addMsg(reply, 'bot');

@@ -3,6 +3,53 @@ export default async function handler(req, res) {
 
   const { messages } = req.body;
 
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': process.env.ANTHROPIC_API_KEY,
+        'anthropic-version': '2023-06-01'
+      },
+      body: JSON.stringify({
+        model: 'claude-haiku-4-5-20251001',
+        max_tokens: 1000,
+        system: `You are Ashar's AI — a friendly assistant embedded in Ashar Shamim's portfolio website. Answer questions about Ashar concisely (2-4 sentences). Be warm and professional.
+
+NAME: Ashar Shamim
+EMAIL: asharshamim@umass.edu
+PHONE: +1 413-345-9422
+
+EDUCATION: MS Business Analytics, UMass Amherst, GPA 4.0 (2026-2027). BBA, IBA Karachi, GPA 3.25 (2024).
+
+EXPERIENCE:
+- Front Desk Associate, Hotel UMass (May 2026-Present)
+- Extern, Amazon Fulfillment Center via Extern Program, Remote (Jun-Aug 2025)
+- Grant Administrator, Aga Khan University (Aug 2024-Jan 2025): managed 15+ grants, $300K+ in awards
+- Commercial Sales Intern, Chevron Pakistan (Jul-Aug 2023)
+- Product Development Intern, DuPont Pakistan (Jun-Jul 2022)
+
+PROJECTS: City Comparison Dashboard (Excel/VBA), COVID-19 Analysis (Python, R²=0.767), Equity Analysis (Python), Dastgyr Dashboard (Power BI, 833M GMV), Hotel Management System (SQL/Power BI)
+
+SKILLS: Python, SQL, Power BI, R, Excel, VBA, SPSS, GA4, Looker Studio, Figma
+
+AVAILABILITY: Open to Summer/Fall 2026 internships in analytics, operations, AI automation. OPT/CPT eligible.`,
+        messages
+      })
+    });
+
+    if (!response.ok) {
+      const errText = await response.text();
+      return res.status(500).json({ error: errText });
+    }
+
+    const data = await response.json();
+    res.status(200).json(data);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
   const response = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: {
