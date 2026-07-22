@@ -709,8 +709,25 @@ section > p:not(.section-intro) {
   background-color: transparent;
 }
 
+.cert-category {
+  margin-top: 24px;
+}
+
+.cert-cat-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+.cert-category .cert-list {
+  grid-template-columns: 1fr 1fr;
+}
+
 .cert-note {
-  margin-top: 18px;
+  margin-top: 24px;
   padding-top: 18px;
   border-top: 1px solid var(--line-soft);
   color: var(--muted);
