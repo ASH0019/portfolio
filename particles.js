@@ -23,7 +23,7 @@ function initParticles() {
       vx: randomBetween(-0.1, 0.1),
       vy: randomBetween(-0.2, -0.04),
       alpha: randomBetween(0.15, 0.6),
-      color: Math.random() > 0.6 ? '#C07F22' : '#3A5A9C'
+      color: Math.random() > 0.3 ? 'rgba(150,170,220,0.8)' : 'rgba(44,74,124,0.9)'
     }));
   }
 

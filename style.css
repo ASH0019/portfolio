@@ -4,8 +4,8 @@
 :root {
   --bg:         #10131A;
   --bg-section: #141820;
-  --bg-card:    #1A1F2E;
-  --bg-card-2:  #1E2434;
+  --bg-card:    rgba(255,255,255,0.05);
+  --bg-card-2:  rgba(255,255,255,0.03);
   --paper:      #1A1F2E;
   --ink:        #10131A;
   --ink-soft:   #1B2230;
@@ -29,7 +29,12 @@
 }
 
 html {
-  background-color: var(--ink);
+  background-color: #0D1117;
+  background-image:
+    radial-gradient(ellipse at 80% 20%, rgba(44,74,124,0.4) 0%, transparent 55%),
+    radial-gradient(ellipse at 20% 50%, rgba(44,74,124,0.2) 0%, transparent 50%),
+    radial-gradient(ellipse at 60% 80%, rgba(44,74,124,0.15) 0%, transparent 45%);
+  background-attachment: fixed;
   scroll-behavior: smooth;
 }
 
@@ -46,14 +51,13 @@ body {
   font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
   font-size: 17px;
   line-height: 1.6;
-  background-color: var(--bg);
+  background: transparent;
 }
 
 main {
   max-width: 960px;
   margin: 0 auto;
   padding: 0 32px 100px;
-  background-color: transparent;
   position: relative;
   z-index: 1;
 }
@@ -158,9 +162,6 @@ header::before {
   content: "";
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(circle at 14% 18%, rgba(192,127,34,0.16), transparent 38%),
-    radial-gradient(circle at 88% 82%, rgba(44,74,124,0.35), transparent 45%);
   pointer-events: none;
 }
 
@@ -313,9 +314,14 @@ section > p:not(.section-intro) {
   position: relative;
   padding: 32px 32px 32px 36px;
   border-left: 3px solid var(--gold);
-  background-color: var(--bg-card);
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border-radius: 0 14px 14px 0;
-  box-shadow: 0 6px 32px rgba(0,0,0,0.3);
+  box-shadow: 0 6px 32px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.06);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  border-right: 1px solid rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
 }
 
 .framed-photo {
