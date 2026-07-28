@@ -314,14 +314,11 @@ section > p:not(.section-intro) {
   position: relative;
   padding: 32px 32px 32px 36px;
   border-left: 3px solid var(--gold);
-  background: rgba(255,255,255,0.04);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: transparent;
   border-radius: 0 14px 14px 0;
-  box-shadow: 0 6px 32px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.06);
-  border-top: 1px solid rgba(255,255,255,0.06);
-  border-right: 1px solid rgba(255,255,255,0.04);
-  border-bottom: 1px solid rgba(255,255,255,0.04);
+  border-top: 1px solid rgba(255,255,255,0.07);
+  border-right: 1px solid rgba(255,255,255,0.05);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
 .framed-photo {
@@ -469,10 +466,10 @@ section > p:not(.section-intro) {
    ===================================================== */
 #experience {
   margin-top: 8px;
-  background-color: var(--bg-card);
+  background: transparent;
   border-radius: 14px;
   padding: 28px 32px 12px;
-  box-shadow: 0 6px 32px rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.06);
 }
 
 .exp-row {
@@ -591,10 +588,10 @@ section > p:not(.section-intro) {
    SKILLS — interactive filter chips
    ===================================================== */
 #skills {
-  background-color: var(--bg-card);
+  background: transparent;
   border-radius: 14px;
   padding: 28px 32px 32px;
-  box-shadow: 0 6px 32px rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.06);
 }
 
 .skill-group {
@@ -660,10 +657,10 @@ section > p:not(.section-intro) {
    a sitemap.
    ===================================================== */
 #certifications {
-  background-color: var(--bg-card);
+  background: transparent;
   border-radius: 14px;
   padding: 28px 32px 32px;
-  box-shadow: 0 6px 32px rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.06);
 }
 
 .cert-list {
